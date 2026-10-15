@@ -1,0 +1,16 @@
+<section class="scene" [class.opening]="opening()" [class.rise]="rise()" [class.gone]="gone()">
+  <h1 class="to">{{ nombre }}</h1>
+  <button class="envelope" aria-label="Abrir la carta" (click)="open()">
+    <div class="env-back"></div>
+    <div class="letter" #letter>♥</div>
+    <div class="env-front"></div>
+    <div class="flap" [style.z-index]="flapBehind() ? 1 : null"></div>
+    <div class="seal" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path fill="#ffd9e4" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 5 6.4 5c2 0 3.5 1.1 4.3 2.4h2.6C14.1 6.1 15.6 5 17.6 5 21 5 23.1 8.4 21.6 11.8 19.5 16.4 12 21 12 21z" opacity=".95"/></svg>
+    </div>
+  </button>
+  <p class="hint">Toca la carta para abrirla</p>
+</section>
+
+<div class="flash" [class.on]="flash() === 'on'" [class.off]="flash() === 'off'"
+     [style.left.px]="flash() === 'idle' ? null : flashAt().x" [style.top.px]="flash() === 'idle' ? null : flashAt().y"></div>

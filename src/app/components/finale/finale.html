@@ -1,0 +1,15 @@
+<div class="photo" [class.on]="s.photoOn()"
+     [style.width.px]="box().size" [style.height.px]="box().size" [style.left.px]="box().left" [style.top.px]="box().top">
+  @if (fotoFalla()) {
+    <div class="placeholder" aria-hidden="true">♥</div>
+  } @else {
+    <img [src]="foto" alt="Ella" (error)="fotoFalla.set(true)">
+  }
+</div>
+
+<div class="finale" [style.top.px]="box().finaleTop">
+  @for (l of lineas; track l.cls; let i = $index) {
+    <p [class]="l.cls" [class.on]="s.finaleStep() > i">{{ l.text }}</p>
+  }
+</div>
+<button class="replay" [class.on]="s.replayOn()" (click)="volver()">Volver a ver</button>
