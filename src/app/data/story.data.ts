@@ -31,7 +31,7 @@ export const STORY = {
   // canción en public/; empieza al tocar la carta, entra suave y se repite
   musica: {
     archivo: 'musica.mp3',
-    volumen: .4,         // de 0 a 1, como se percibe al oído
+    volumen: .2,        // de 0 a 1, como se percibe al oído
     desdeSegundo: 0,     // para saltar la intro de la canción
     segundosFadeIn: 4
   },
