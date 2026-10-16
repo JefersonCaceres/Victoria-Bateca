@@ -28,6 +28,13 @@ export const STORY = {
   // fotos en public/, en el orden en que se muestran; las que no existan se saltan
   fotos: ['victoria.jpg', 'victoria-2.jpg', 'victoria-3.jpg', 'victoria-4.jpg', 'victoria-5.jpg'],
   segundosPorFoto: 5,
+  // canción en public/; empieza al tocar la carta, entra suave y se repite
+  musica: {
+    archivo: 'musica.mp3',
+    volumen: .4,         // de 0 a 1, como se percibe al oído
+    desdeSegundo: 0,     // para saltar la intro de la canción
+    segundosFadeIn: 4
+  },
   final: {
     l1: 'No te puedo regalar una galaxia,',
     l2: 'pero sí crear una para ti.',

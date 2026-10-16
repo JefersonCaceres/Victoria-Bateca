@@ -1,5 +1,6 @@
 import { Component, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { STORY } from '../../data/story.data';
+import { MusicService } from '../../services/music.service';
 import { SceneService } from '../../services/scene.service';
 import { sleep } from '../../utils/math';
 
@@ -10,6 +11,7 @@ import { sleep } from '../../utils/math';
 })
 export class Envelope {
   private readonly scene = inject(SceneService);
+  private readonly music = inject(MusicService);
   private readonly letter = viewChild.required<ElementRef<HTMLElement>>('letter');
 
   protected readonly nombre = STORY.nombre;
@@ -23,6 +25,7 @@ export class Envelope {
 
   protected async open() {
     if (this.opened) return; this.opened = true;
+    this.music.start();
     this.opening.set(true);
     await sleep(450);
     setTimeout(() => this.flapBehind.set(true), 450);
