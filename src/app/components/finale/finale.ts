@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { STORY, diasDesde } from '../../data/story.data';
 import { SceneService } from '../../services/scene.service';
 import { ViewportService } from '../../services/viewport.service';
@@ -12,8 +12,9 @@ export class Finale {
   protected readonly s = inject(SceneService);
   private readonly vp = inject(ViewportService);
 
-  protected readonly foto = STORY.foto;
-  protected readonly fotoFalla = signal(false);
+  /** Fotos que sí cargaron, en el orden de la configuración. */
+  protected readonly fotos = signal<string[]>([]);
+  protected readonly actual = signal(0);
   protected readonly lineas = [
     { cls: 'l1', text: STORY.final.l1 },
     { cls: 'l2', text: STORY.final.l2 },
@@ -26,6 +27,22 @@ export class Finale {
     const { x, y, r } = this.vp.photoBox();
     return { size: r * 2 - 14, left: x - r + 7, top: y - r + 7, finaleTop: y + r + 30 };
   });
+
+  constructor() {
+    // se cargan desde el inicio para que estén listas cuando aparezca el círculo
+    const ok = new Set<string>();
+    for (const src of STORY.fotos) {
+      const img = new Image();
+      img.onload = () => { ok.add(src); this.fotos.set(STORY.fotos.filter(f => ok.has(f))); };
+      img.src = src;
+    }
+    // se cambian solo cuando la foto ya está a la vista
+    const id = setInterval(() => {
+      const n = this.fotos().length;
+      if (this.s.photoOn() && n > 1) this.actual.update(i => (i + 1) % n);
+    }, STORY.segundosPorFoto * 1000);
+    inject(DestroyRef).onDestroy(() => clearInterval(id));
+  }
 
   protected volver() { location.reload(); }
 }

@@ -25,7 +25,9 @@ export const STORY = {
   ] as StoryItem[],
   segundosPorFrase: 6.5,
   inicio: '2026-07-13',   // día en que nació la galaxia (para el contador)
-  foto: 'victoria.jpg',
+  // fotos en public/, en el orden en que se muestran; las que no existan se saltan
+  fotos: ['victoria.jpg', 'victoria-2.jpg', 'victoria-3.jpg', 'victoria-4.jpg', 'victoria-5.jpg'],
+  segundosPorFoto: 5,
   final: {
     l1: 'No te puedo regalar una galaxia,',
     l2: 'pero sí crear una para ti.',

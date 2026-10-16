@@ -1,9 +1,9 @@
 <div class="photo" [class.on]="s.photoOn()"
      [style.width.px]="box().size" [style.height.px]="box().size" [style.left.px]="box().left" [style.top.px]="box().top">
-  @if (fotoFalla()) {
+  @for (f of fotos(); track f; let i = $index) {
+    <img [src]="f" alt="Ella" [class.on]="i === actual()">
+  } @empty {
     <div class="placeholder" aria-hidden="true">♥</div>
-  } @else {
-    <img [src]="foto" alt="Ella" (error)="fotoFalla.set(true)">
   }
 </div>
 
